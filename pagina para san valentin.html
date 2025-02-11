@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ciunely</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('URL_DE_TU_IMAGEN_DE_FONDO'); /* Agrega la URL de tu fondo */
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: #444;
+            overflow: auto; /* Permitimos el scroll */
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3em;
+            margin-top: 100px;
+            color: #e53935;
+        }
+
+        .heart {
+            font-size: 100px;
+            color: #e53935;
+            margin-top: 50px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Animación de revelado de texto */
+        .reveal-text {
+            display: inline-block;
+            opacity: 0;
+            animation: reveal 5s forwards;
+            white-space: pre-wrap; /* Esto mantiene los saltos de línea */
+        }
+
+        @keyframes reveal {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .message {
+            font-size: 1.5em;
+            margin-top: 30px;
+            color: #fff;
+            display: inline-block;
+        }
+
+        /* Contenedor de botones */
+        .buttons {
+            margin-top: 30px; /* Ajustamos el espacio */
+            display: inline-block;
+            position: relative; /* Aseguramos que los botones estén en el flujo normal */
+            z-index: 1; /* Aseguramos que los botones estén por encima de otros elementos */
+        }
+
+        /* Estilo de los botones */
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            background-color: #e53935;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #c62828;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Confeti */
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .confetti div {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ffcc00;
+            opacity: 0;
+            animation: confettiFall 2s infinite;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Estilos para las flores y ramas */
+        .flower, .branch {
+            position: absolute;
+            font-size: 2em;
+            opacity: 0;
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .flower-left {
+            left: 10%;
+            top: 20%;
+            transform: translateX(-100%);
+        }
+
+        .flower-right {
+            right: 10%;
+            top: 20%;
+            transform: translateX(100%);
+        }
+
+        .flower-top-left {
+            left: 10%;
+            top: 10%;
+            transform: translateX(-100%);
+        }
+
+        .flower-top-right {
+            right: 10%;
+            top: 10%;
+            transform: translateX(100%);
+        }
+
+        .flower-bottom-left {
+            left: 10%;
+            bottom: 10%;
+            transform: translateX(-100%);
+        }
+
+        .flower-bottom-right {
+            right: 10%;
+            bottom: 10%;
+            transform: translateX(100%);
+        }
+
+        .branch-left {
+            left: 5%;
+            bottom: 20%;
+            transform: translateX(-100%);
+        }
+
+        .branch-right {
+            right: 5%;
+            bottom: 20%;
+            transform: translateX(100%);
+        }
+
+        /* Texto a los lados */
+        .side-text {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2em;
+            color: #fff;
+            opacity: 0;
+            transition: opacity 1s ease;
+            white-space: pre-wrap;
+            z-index: 0; /* Asegurar que esté detrás de los botones */
+        }
+
+        .side-text.left {
+            left: 5%;
+            text-align: left;
+        }
+
+        .side-text.right {
+            right: 5%;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ciunely, quiero preguntarte... ¿quieres ser mi San Valentín?</h1>
+    <img src="rei.jpg" alt="Imagen significativa" style="max-width: 80%; margin-top: 30px;">
+    <div class="heart">❤️</div>
+
+    <!-- Aquí es donde se coloca el mensaje -->
+    <p class="message reveal-text" id="message">
+        Je t'aime pour toujours<br>
+        Mon coeur est tien<br>
+        Je te deteste<br>
+        Amour de ma vie<br>
+        Je ne mens pas<br>
+        Je te adore
+    </p>
+
+    <!-- Texto a los lados -->
+    <div class="side-text left hidden" id="leftText">
+        Je t'aime pour toujours<br>
+        Mon coeur est tien<br>
+        Je te deteste
+    </div>
+    <div class="side-text right hidden" id="rightText">
+        Amour de ma vie<br>
+        Je ne mens pas<br>
+        Je te adore
+    </div>
+
+    <!-- Flores y ramas a los lados -->
+    <div class="flower flower-left">🌸</div>
+    <div class="flower flower-right">🌺</div>
+    <div class="flower flower-top-left">🌼</div>
+    <div class="flower flower-top-right">🌻</div>
+    <div class="flower flower-bottom-left">🌷</div>
+    <div class="flower flower-bottom-right">💐</div>
+
+    <!-- Ramas de rosales -->
+    <div class="branch branch-left">🌿</div>
+    <div class="branch branch-right">🍃</div>
+
+    <!-- Botones debajo del mensaje -->
+    <div class="buttons">
+        <button class="btn" onclick="acceptProposal()">¡Claro que sí!</button>
+        <button class="btn" onclick="declineProposal()">Quizás otro año...</button>
+    </div>
+
+    <div class="confetti hidden" id="confetti">
+        <div></div><div></div><div></div><div></div><div></div>
+    </div>
+
+    <script>
+        function acceptProposal() {
+            document.querySelector(".message").textContent = "¡Yay! ¡Te quiero mucho! 💖";
+            document.getElementById("confetti").classList.remove("hidden");
+
+            // Mostrar flores y ramas después del "Sí"
+            document.querySelectorAll('.flower').forEach(flower => {
+                flower.style.opacity = '1';
+                flower.style.transform = 'translateX(0)';
+            });
+            document.querySelectorAll('.branch').forEach(branch => {
+                branch.style.opacity = '1';
+                branch.style.transform = 'translateX(0)';
+            });
+
+            // Mostrar el texto a los lados
+            document.getElementById("leftText").classList.remove("hidden");
+            document.getElementById("rightText").classList.remove("hidden");
+
+            setTimeout(() => alert("¡Gracias por decir que sí! mandame tu captura a instagram. 🌟"), 2000);
+        }
+
+        function declineProposal() {
+            document.querySelector(".message").textContent = "¡Vaya! ¡Te lo pregunté con amor! 💔";
+        }
+    </script>
+</body>
+</html>
