@@ -9,14 +9,12 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-image: url('URL_DE_TU_IMAGEN_DE_FONDO'); /* Agrega la URL de tu fondo */
-            background-size: cover;
-            background-position: center;
+            background-color: #f8bbd0; /* Fondo rosa */
             text-align: center;
             color: #444;
-            overflow: auto; /* Permitimos el scroll */
+            overflow: auto;
         }
-
+    
         h1 {
             font-family: 'Dancing Script', cursive;
             font-size: 3em;
@@ -24,10 +22,19 @@
             color: #e53935;
         }
 
+        .message {
+            font-size: 1.5em;
+            margin-top: 30px;
+            color: #fff;
+            display: inline-block;
+            opacity: 0; /* Oculto al inicio */
+            transition: opacity 2s ease-in-out;
+        }
+
         .heart {
             font-size: 100px;
             color: #e53935;
-            margin-top: 50px;
+            margin-top: 30px;
             animation: heartbeat 1.5s infinite;
         }
 
@@ -37,39 +44,18 @@
             100% { transform: scale(1); }
         }
 
-        /* Animación de revelado de texto */
-        .reveal-text {
-            display: inline-block;
-            opacity: 0;
-            animation: reveal 5s forwards;
-            white-space: pre-wrap; /* Esto mantiene los saltos de línea */
+        /* Media query para pantallas pequeñas */
+        @media (max-width: 600px) {
+            .message {
+                font-size: 1.2em; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
+            }
         }
 
-        @keyframes reveal {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        .message {
-            font-size: 1.5em;
-            margin-top: 30px;
-            color: #fff;
-            display: inline-block;
-        }
-
-        /* Contenedor de botones */
-        .buttons {
-            margin-top: 30px; /* Ajustamos el espacio */
-            display: inline-block;
-            position: relative; /* Aseguramos que los botones estén en el flujo normal */
-            z-index: 1; /* Aseguramos que los botones estén por encima de otros elementos */
-        }
-
-        /* Estilo de los botones */
+        /* Estilos para los botones */
         .btn {
             padding: 15px 30px;
             font-size: 1.2em;
-            background-color: #e53935;
+            background-color: #e53935; /* Rojo */
             color: white;
             border: none;
             border-radius: 5px;
@@ -78,14 +64,13 @@
         }
 
         .btn:hover {
-            background-color: #c62828;
+            background-color: #c62828; /* Rojo más oscuro cuando pasa el mouse */
         }
 
-        .hidden {
-            display: none;
+        .buttons {
+            margin-top: 30px;
         }
 
-        /* Confeti */
         .confetti {
             position: absolute;
             top: 0;
@@ -94,6 +79,7 @@
             bottom: 0;
             pointer-events: none;
             z-index: 999;
+            display: none; /* Ocultamos el confeti inicialmente */
         }
 
         .confetti div {
@@ -116,62 +102,6 @@
             }
         }
 
-        /* Estilos para las flores y ramas */
-        .flower, .branch {
-            position: absolute;
-            font-size: 2em;
-            opacity: 0;
-            transition: opacity 1s ease, transform 1s ease;
-        }
-
-        .flower-left {
-            left: 10%;
-            top: 20%;
-            transform: translateX(-100%);
-        }
-
-        .flower-right {
-            right: 10%;
-            top: 20%;
-            transform: translateX(100%);
-        }
-
-        .flower-top-left {
-            left: 10%;
-            top: 10%;
-            transform: translateX(-100%);
-        }
-
-        .flower-top-right {
-            right: 10%;
-            top: 10%;
-            transform: translateX(100%);
-        }
-
-        .flower-bottom-left {
-            left: 10%;
-            bottom: 10%;
-            transform: translateX(-100%);
-        }
-
-        .flower-bottom-right {
-            right: 10%;
-            bottom: 10%;
-            transform: translateX(100%);
-        }
-
-        .branch-left {
-            left: 5%;
-            bottom: 20%;
-            transform: translateX(-100%);
-        }
-
-        .branch-right {
-            right: 5%;
-            bottom: 20%;
-            transform: translateX(100%);
-        }
-
         /* Texto a los lados */
         .side-text {
             position: fixed;
@@ -182,7 +112,9 @@
             opacity: 0;
             transition: opacity 1s ease;
             white-space: pre-wrap;
-            z-index: 0; /* Asegurar que esté detrás de los botones */
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para mejor legibilidad */
+            padding: 10px;
+            border-radius: 10px;
         }
 
         .side-text.left {
@@ -193,6 +125,98 @@
         .side-text.right {
             right: 5%;
             text-align: right;
+        }
+
+        /* Flores en diferentes partes */
+        .flower {
+            position: absolute;
+            font-size: 50px;
+            opacity: 0;
+            animation: flowerAnimation 5s forwards;
+        }
+
+        /* Animación para que las flores aparezcan en diferentes posiciones */
+        @keyframes flowerAnimation {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        /* Diferentes posiciones para las flores */
+        .flower-left {
+            left: 10%;
+            top: 20%;
+            animation-delay: 1s;
+        }
+
+        .flower-right {
+            right: 10%;
+            top: 15%;
+            animation-delay: 2s;
+        }
+
+        .flower-top-left {
+            left: 5%;
+            top: 5%;
+            animation-delay: 3s;
+        }
+
+        .flower-top-right {
+            right: 5%;
+            top: 5%;
+            animation-delay: 4s;
+        }
+
+        .flower-bottom-left {
+            left: 5%;
+            bottom: 5%;
+            animation-delay: 5s;
+        }
+
+        .flower-bottom-right {
+            right: 5%;
+            bottom: 5%;
+            animation-delay: 6s;
+        }
+
+        /* Ramas de rosales */
+        .branch {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0;
+            animation: branchAnimation 5s forwards;
+        }
+
+        .branch-left {
+            left: 15%;
+            top: 40%;
+            animation-delay: 2s;
+        }
+
+        .branch-right {
+            right: 15%;
+            top: 40%;
+            animation-delay: 3s;
+        }
+
+        @keyframes branchAnimation {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(720deg);
+            }
         }
     </style>
 </head>
@@ -223,7 +247,7 @@
         Je te adore
     </div>
 
-    <!-- Flores y ramas a los lados -->
+    <!-- Flores y ramas en diferentes partes -->
     <div class="flower flower-left">🌸</div>
     <div class="flower flower-right">🌺</div>
     <div class="flower flower-top-left">🌼</div>
@@ -247,8 +271,18 @@
 
     <script>
         function acceptProposal() {
-            document.querySelector(".message").textContent = "¡Yay! ¡Te quiero mucho! 💖";
+    document.querySelector(".message").textContent = 
+    "Je t'aime pour toujours " + 
+    "Mon cœur est à toi " + 
+    "Je te reste " + 
+    "Amour de ma vie " + 
+    "Je ne te mens pas " + 
+    "Je t'adore 💖";
+
+
+
             document.getElementById("confetti").classList.remove("hidden");
+            document.getElementById("confetti").style.display = 'block'; // Mostrar el confeti
 
             // Mostrar flores y ramas después del "Sí"
             document.querySelectorAll('.flower').forEach(flower => {
@@ -264,11 +298,19 @@
             document.getElementById("leftText").classList.remove("hidden");
             document.getElementById("rightText").classList.remove("hidden");
 
+            // Animación de revelado del texto
+            setTimeout(() => {
+                document.querySelectorAll('.reveal-text').forEach(text => {
+                    text.style.opacity = '1';
+                    text.style.animation = 'reveal 5s forwards';
+                });
+            }, 1000); // Se inicia la animación después de 1 segundo
+
             setTimeout(() => alert("¡Gracias por decir que sí! mandame tu captura a instagram. 🌟"), 2000);
         }
 
         function declineProposal() {
-            document.querySelector(".message").textContent = "¡Vaya! ¡Te lo pregunté con amor! 💔";
+            document.querySelector(".message").textContent = "no te preocupes :) ";
         }
     </script>
 </body>
